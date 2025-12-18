@@ -1,9 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import authRoutes from './routes/auth.routes';
-import { authenticate } from './middleware/authenticate';
-import { authorize } from './middleware/authorize';
 import userRoutes from './routes/user.routes'
+import courseRoutes from './routes/course.routes'
+import chaptersRoutes from './routes/chapters.routes'
+import progressRoutes from './routes/progress.routes'
+import certificateRoutes from './routes/certificate.routes'
 
 const app = express();
 
@@ -12,15 +14,10 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-
-app.get(
-  '/api/test/admin',
-  authenticate,
-  authorize(['admin']),
-  (_req, res) => {
-    res.json({ message: 'Admin access granted' });
-  }
-);
+app.use('/api/courses', courseRoutes);
+app.use('/api', chaptersRoutes);
+app.use('/api/progress', progressRoutes);
+app.use('/api/certificates', certificateRoutes);
 
 
 export default app;

@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import bcrypt from 'bcrypt';
 
 export interface IUser extends Document {
   name: string;
@@ -25,5 +26,11 @@ const UserSchema = new Schema<IUser>(
   },
   { timestamps: true }
 );
+
+// 🔑 HASH PASSWORD BEFORE SAVE (Mongoose v7+ safe)
+UserSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
+  this.password = await bcrypt.hash(this.password, 10);
+});
 
 export default mongoose.model<IUser>('User', UserSchema);

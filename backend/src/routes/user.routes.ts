@@ -1,15 +1,37 @@
 import { Router } from 'express';
-import { getAllUsers, approveMentor, deleteUser } from '../controllers/user.controller';
 import { authenticate } from '../middleware/authenticate';
 import { authorize } from '../middleware/authorize';
+import {getAllUsers,approveMentor,createMentor, deleteUser} from '../controllers/user.controller';
 
 const router = Router();
 
-router.use(authenticate);
-router.use(authorize(['admin']));
+router.get(
+  '/',
+  authenticate,
+  authorize(['admin']),
+  getAllUsers
+);
 
-router.get('/', getAllUsers);
-router.put('/:id/approve-mentor', approveMentor);
-router.delete('/:id', deleteUser);
+router.post(
+  '/create-mentor',
+  authenticate,
+  authorize(['admin']),
+  createMentor
+);
+
+router.put(
+  '/:id/approve-mentor',
+  authenticate,
+  authorize(['admin']),
+  approveMentor
+);
+
+router.delete(
+  '/:id',
+  authenticate,
+  authorize(['admin']),
+  deleteUser
+);
+
 
 export default router;
