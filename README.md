@@ -3,6 +3,8 @@
 A role-based Learning Management System built using Node.js, Express, MongoDB, and React (Vite + TypeScript).
 The system supports Admin, Mentor, and Student roles, enforcing JWT-based authentication and RBAC at the backend.
 
+Note - My Frontend is not upto date yet because of lack of time but my backend code is accoridng to the requirements. 
+
 🚀 Tech Stack
 Backend
 -Node.js
@@ -153,4 +155,7 @@ All AI-generated code was:
 -Reviewed
 -Modified where required
 -Tested thoroughly using Postman and browser-based testing
+
+
+
 
