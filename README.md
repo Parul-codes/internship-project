@@ -1,0 +1,156 @@
+# Learning Management System (LMS) – Internship Assignment
+
+A role-based Learning Management System built using Node.js, Express, MongoDB, and React (Vite + TypeScript).
+The system supports Admin, Mentor, and Student roles, enforcing JWT-based authentication and RBAC at the backend.
+
+🚀 Tech Stack
+Backend
+-Node.js
+-Express.js
+-TypeScript
+-MongoDB (Atlas)
+-Mongoose
+-JWT Authentication
+-bcrypt
+-PDFKit (Certificate Generation)
+
+Frontend
+-React (Vite)
+-TypeScript
+-Axios
+-Tailwind CSS
+
+🔐 Authentication & Authorization
+
+-JWT-based authentication
+-JWT payload contains:
+-userId
+-role (student | mentor | admin)
+-Role-Based Access Control (RBAC) enforced at:
+-API level (middleware)
+-Unauthorized access returns proper 401 / 403 responses
+
+👥 User Roles & Permissions
+🧑‍🎓 Student
+
+Register & Login
+
+View assigned courses
+
+Complete chapters sequentially
+
+Track course progress
+
+Download certificate after 100% completion
+
+🧑‍🏫 Mentor
+
+Login after admin approval
+
+Create, update, delete courses
+
+Add chapters to courses
+
+View own courses only
+
+👨‍💼 Admin
+
+View all users
+
+Create mentors & admins
+
+Approve mentors
+
+Delete users
+
+API Endpoints
+🔑 Authentication
+Method	Endpoint	Description
+POST	/api/auth/register	Student registration
+POST	/api/auth/login	Login (all roles)
+👤 User Management (Admin)
+Method	Endpoint	Description
+GET	/api/users	Get all users
+POST	/api/users/create-mentor	Create mentor
+PUT	/api/users/:id/approve-mentor	Approve mentor
+DELETE	/api/users/:id	Delete user
+📚 Course Management (Mentor)
+Method	Endpoint	Description
+POST	/api/courses	Create course
+GET	/api/courses/my	Get mentor’s courses
+PUT	/api/courses/:id	Update course
+DELETE	/api/courses/:id	Delete course
+📖 Chapter Management (Mentor)
+Method	Endpoint	Description
+POST	/api/courses/:id/chapters	Add chapter
+GET	/api/courses/:id/chapters	Get course chapters
+PUT	/api/chapters/:id	Update chapter
+DELETE	/api/chapters/:id	Delete chapter
+📊 Progress Tracking (Student)
+Method	Endpoint	Description
+POST	/api/progress/:chapterId/complete	Mark chapter complete
+GET	/api/progress/my	View progress
+
+✔ Chapters must be completed sequentially
+✔ Progress stored chapter-wise
+✔ Completion % auto-calculated
+
+🎓 Certificate
+Method	Endpoint	Description
+GET	/api/certificates/:courseId	Download course certificate
+
+✔ Unlocked only after 100% course completion
+✔ Generated dynamically as PDF
+
+backend/
+ └── src/
+     ├── config/
+     ├── controllers/
+     ├── middleware/
+     ├── models/
+     ├── routes/
+     ├── utils/
+     ├── app.ts
+     └── server.ts
+
+frontend/
+ └── src/
+     ├── pages/
+     ├── components/
+     ├── services/
+     ├── context/
+     └── main.tsx
+
+⚙️ Environment Variables
+PORT=4000
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_secret_key
+VITE_API_BASE_URL=http://localhost:4000/api
+
+🧪 Testing
+-All APIs tested using Postman
+-Role-based access verified using different JWT tokens
+-Edge cases handled (unauthorized access, invalid credentials)
+
+🚀 Deployment
+-Backend: Render / Railway
+-Frontend: Vercel
+
+🤖 AI Usage & Transparency
+This project was developed with responsible and transparent use of AI tools, as permitted by the internship guidelines.
+
+Frontend Development
+-The initial frontend UI scaffolding was generated using Bolt (AI-powered frontend tool).
+Bolt was used to:
+-Generate basic page layouts
+-Create initial component structure
+-Speed up UI setup
+
+Developer Contributions
+-All backend architecture, APIs, authentication, RBAC logic, database models, and business rules were designed and implemented manually.
+-Frontend–backend integration, API wiring, authentication handling, and role-based flows were implemented and verified by the developer.
+All AI-generated code was:
+-Reviewed
+-Modified where required
+-Tested thoroughly using Postman and browser-based testing
+
