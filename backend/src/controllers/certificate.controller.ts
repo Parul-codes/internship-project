@@ -1,10 +1,15 @@
 import { Response } from 'express';
-import { AuthRequest } from '../middleware/authenticate';
 import Chapter from '../models/Chapter';
 import Progress from '../models/Progress';
 import Course from '../models/Course';
 import User from '../models/User';
 import { generateCertificate } from '../utils/pdf';
+import { Request } from "express";
+
+export interface AuthRequest extends Request {
+  user?: any;
+}
+
 
 export const getCertificate = async (
   req: AuthRequest,

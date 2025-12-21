@@ -1,7 +1,12 @@
 import { Response } from 'express';
-import { AuthRequest } from '../middleware/authenticate';
 import Progress from '../models/Progress';
 import Chapter from '../models/Chapter';
+import { Request } from "express";
+
+export interface AuthRequest extends Request {
+  user?: any;
+}
+
 
 // POST /api/progress/:chapterId/complete
 export const completeChapter = async (
