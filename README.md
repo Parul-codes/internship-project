@@ -127,7 +127,7 @@ frontend/
 PORT=4000
 MONGO_URI=your_mongodb_uri
 JWT_SECRET=your_secret_key
-VITE_API_BASE_URL=http://localhost:4000/api
+VITE_API_BASE_URL=https://internship-project-lakn.onrender.com
 
 🧪 Testing
 -All APIs tested using Postman
@@ -135,8 +135,8 @@ VITE_API_BASE_URL=http://localhost:4000/api
 -Edge cases handled (unauthorized access, invalid credentials)
 
 🚀 Deployment
--Backend: Render / Railway
--Frontend: Vercel
+-Backend: https://internship-project-lakn.onrender.com
+-Frontend: internship-project-eosin.vercel.app
 
 🤖 AI Usage & Transparency
 This project was developed with responsible and transparent use of AI tools, as permitted by the internship guidelines.
