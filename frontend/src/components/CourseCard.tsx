@@ -11,7 +11,7 @@ interface CourseCardProps {
 
 const CourseCard = ({ course, viewPath, showProgress = false }: CourseCardProps) => {
   const progress = course.progress || 0;
-  const linkPath = viewPath || `/course/${course.id}`;
+  const linkPath = `/courses/69440f798182c0ccd9ff967e/chapters`;
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
@@ -28,18 +28,6 @@ const CourseCard = ({ course, viewPath, showProgress = false }: CourseCardProps)
         </p>
 
         <div className="space-y-3">
-          <div className="flex items-center justify-between text-sm text-gray-500">
-            <span>{course.totalChapters} chapters</span>
-            {course.mentorName && (
-              <span className="text-xs">by {course.mentorName}</span>
-            )}
-            {course.enrolledStudents !== undefined && (
-              <div className="flex items-center space-x-1">
-                <Users className="h-4 w-4" />
-                <span>{course.enrolledStudents}</span>
-              </div>
-            )}
-          </div>
 
           {showProgress && (
             <ProgressBar percentage={progress} height="h-1.5" showLabel={false} />

@@ -16,30 +16,23 @@ export interface Course {
   id: string;
   title: string;
   description: string;
-  thumbnail?: string;
   progress?: number;
-  totalChapters: number;
-  completedChapters: number;
-  mentorName?: string;
-  enrolledStudents?: number;
 }
 
 export interface Chapter {
   id: string;
-  courseId: string;
   title: string;
-  content: string;
-  order: number;
-  isCompleted: boolean;
-  isLocked: boolean;
+  description: string;
   videoUrl?: string;
-  duration?: string;
+  sequence: number;
+  // mentorId: string;
 }
+
 
 export interface CourseProgress {
   courseId: string;
-  completedChapters: number;
-  totalChapters: number;
+  completedChapters: string[];
+  // totalChapters: number;
   percentage: number;
   lastAccessedChapter?: number;
 }

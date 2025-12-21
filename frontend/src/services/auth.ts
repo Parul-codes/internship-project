@@ -1,89 +1,89 @@
 import api from './api';
-import { AuthResponse, User, Course, Chapter, CourseProgress, Certificate } from '../types';
+import { Course, Chapter } from '../types';
+
+/* ================= AUTH ================= */
 
 export const authService = {
-  login: async (email: string, password: string): Promise<AuthResponse> => {
-    const response = await api.post<AuthResponse>('/auth/login', { email, password });
-    return response.data;
+
+  login: async (email: string, password: string) => {
+    const res = await api.post('/auth/login', { email, password });
+    return {
+      token: res.data.token,
+      role: res.data.role
+    };
   },
 
   logout: () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem('role');
   },
 
-  getCurrentUser: (): User | null => {
-    const userStr = localStorage.getItem('user');
-    return userStr ? JSON.parse(userStr) : null;
-  },
-
-  saveAuth: (token: string, user: User) => {
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
+  getRole: () => {
+    return localStorage.getItem('role');
   },
 };
+
+/* ================= COURSES ================= */
 
 export const courseService = {
-  getStudentCourses: async (): Promise<Course[]> => {
-    const response = await api.get<Course[]>('/student/courses');
-    return response.data;
+  // Mentor: create course
+  createCourse: async (data: { title: string; description: string }) => {
+    const res = await api.post('/courses', data);
+    return res.data;
   },
 
-  getMentorCourses: async (): Promise<Course[]> => {
-    const response = await api.get<Course[]>('/mentor/courses');
-    return response.data;
+  // Mentor: my courses
+  getMyCourses: async (): Promise<Course[]> => {
+    const res = await api.get('/courses/my');
+    return res.data;
   },
 
-  getAllCourses: async (): Promise<Course[]> => {
-    const response = await api.get<Course[]>('/admin/courses');
-    return response.data;
-  },
-
-  getCourseById: async (courseId: string): Promise<Course> => {
-    const response = await api.get<Course>(`/courses/${courseId}`);
-    return response.data;
-  },
-
+  // Student / Mentor: course chapters
   getCourseChapters: async (courseId: string): Promise<Chapter[]> => {
-    const response = await api.get<Chapter[]>(`/courses/${courseId}/chapters`);
-    return response.data;
-  },
-
-  getCourseProgress: async (courseId: string): Promise<CourseProgress> => {
-    const response = await api.get<CourseProgress>(`/courses/${courseId}/progress`);
-    return response.data;
-  },
-
-  markChapterComplete: async (courseId: string, chapterId: string): Promise<void> => {
-    await api.post(`/courses/${courseId}/chapters/${chapterId}/complete`);
+    const res = await api.get(`/courses/69440f798182c0ccd9ff967e/chapters`);
+    return res.data;
   },
 };
+
+/* ================= PROGRESS ================= */
+
+export const progressService = {
+  completeChapter: async (chapterId: string) => {
+    await api.post(`/progress/${chapterId}/complete`);
+  },
+
+  getMyProgress: async () => {
+    const res = await api.get('/progress/my');
+    return res.data;
+  },
+};
+
+/* ================= CERTIFICATE ================= */
 
 export const certificateService = {
-  getCertificates: async (): Promise<Certificate[]> => {
-    const response = await api.get<Certificate[]>('/student/certificates');
-    return response.data;
-  },
-
-  downloadCertificate: async (certificateId: string): Promise<string> => {
-    const response = await api.get<{ url: string }>(`/certificates/${certificateId}/download`);
-    return response.data.url;
+  downloadCertificate: async (courseId: string) => {
+    const res = await api.get(`/api/certificates/69440f798182c0ccd9ff967e`, {
+      responseType: 'blob',
+    });
+    return res.data;
   },
 };
+
+/* ================= ADMIN ================= */
 
 export const adminService = {
   getUsers: async () => {
-    const response = await api.get('/admin/users');
-    return response.data;
+    const res = await api.get('/users');
+    return res.data;
   },
 
-  createCourse: async (courseData: Partial<Course>) => {
-    const response = await api.post('/admin/courses', courseData);
-    return response.data;
+  approveMentor: async (userId: string) => {
+    const res = await api.put(`/users/${userId}/approve-mentor`);
+    return res.data;
   },
 
-  getStatistics: async () => {
-    const response = await api.get('/admin/statistics');
-    return response.data;
+  deleteUser: async (userId: string) => {
+    const res = await api.delete(`/users/${userId}`);
+    return res.data;
   },
 };

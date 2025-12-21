@@ -12,6 +12,39 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  // const handleSubmit = async (e: FormEvent) => {
+  //   e.preventDefault();
+  //   setError('');
+  //   setLoading(true);
+
+  //   try {
+  //     const response = await authService.login(email, password);
+  //     login(response.token, response.user);
+
+  //     switch (response.user.role) {
+  //       case 'student':
+  //         navigate('/student/dashboard');
+  //         break;
+  //       case 'mentor':
+  //         navigate('/mentor/dashboard');
+  //         break;
+  //       case 'admin':
+  //         navigate('/admin/dashboard');
+  //         break;
+  //       default:
+  //         navigate('/');
+  //     }
+  //   } catch (err: unknown) {
+  //     if (err instanceof Error) {
+  //       setError(err.message || 'Invalid email or password');
+  //     } else {
+  //       setError('Invalid email or password');
+  //     }
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
@@ -19,9 +52,12 @@ const Login = () => {
 
     try {
       const response = await authService.login(email, password);
-      login(response.token, response.user);
 
-      switch (response.user.role) {
+      // ✅ Save token + role (not full user)
+      login(response.token, response.role);
+
+      // ✅ Redirect based on role
+      switch (response.role) {
         case 'student':
           navigate('/student/dashboard');
           break;
@@ -32,19 +68,14 @@ const Login = () => {
           navigate('/admin/dashboard');
           break;
         default:
-          navigate('/');
+          navigate('/login');
       }
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message || 'Invalid email or password');
-      } else {
-        setError('Invalid email or password');
-      }
+    } catch {
+      setError('Invalid email or password');
     } finally {
       setLoading(false);
     }
   };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center px-4">
       <div className="max-w-md w-full">
@@ -106,7 +137,7 @@ const Login = () => {
 
           <div className="mt-6 pt-6 border-t border-gray-200">
             <p className="text-xs text-gray-500 text-center">
-              Demo Credentials: student@example.com / mentor@example.com / admin@example.com
+              Demo Credentials: student@test.com / mentor@test.com / admin@test.com with password : 123456
             </p>
           </div>
         </div>
@@ -116,3 +147,6 @@ const Login = () => {
 };
 
 export default Login;
+
+
+

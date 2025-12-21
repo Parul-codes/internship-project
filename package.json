@@ -12,7 +12,6 @@
     "dev:backend": "ts-node-dev --respawn --transpile-only --project backend/tsconfig.json backend/src/server.ts"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.57.4",
     "@types/cors": "^2.8.19",
     "axios": "^1.13.2",
     "bcrypt": "^6.0.0",

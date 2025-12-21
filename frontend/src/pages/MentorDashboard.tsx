@@ -5,9 +5,10 @@ import { Course } from '../types';
 import Navbar from '../components/Navbar';
 import CourseCard from '../components/CourseCard';
 import { BookOpen, AlertCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const MentorDashboard = () => {
-  const { user } = useAuth();
+  const { role } = useAuth();
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -19,7 +20,7 @@ const MentorDashboard = () => {
   const fetchCourses = async () => {
     try {
       setLoading(true);
-      const data = await courseService.getMentorCourses();
+      const data = await courseService.getMyCourses();
       setCourses(data);
     } catch (err) {
       setError('Failed to load courses. Please try again later.');
@@ -29,18 +30,19 @@ const MentorDashboard = () => {
     }
   };
 
-  const totalStudents = courses.reduce((acc, course) => acc + (course.enrolledStudents || 0), 0);
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome, {user?.name}!
-          </h1>
-          <p className="text-gray-600">Manage your courses and track student progress</p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Welcome, {role!}!
+            </h1>
+            <p className="text-gray-600">Manage your courses and track student progress</p>
+          </div>
+          <button className='bg-blue-700 text-white rounded-md p-2'>Create Course +</button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -57,8 +59,12 @@ const MentorDashboard = () => {
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1">Total Students</p>
-                <p className="text-3xl font-bold text-gray-900">{totalStudents}</p>
+                {/* <p className="text-sm text-gray-600 mb-1">Total Students</p>
+                <p className="text-3xl font-bold text-gray-900">{totalStudents}</p> */}
+                <p className="text-sm text-gray-600 mb-1">Status</p>
+                <p className="text-lg font-medium text-gray-800">
+                  {courses.length > 0 ? 'Active Mentor' : 'No courses yet'}
+                </p>
               </div>
               <div className="h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center">
                 <span className="text-2xl">👥</span>

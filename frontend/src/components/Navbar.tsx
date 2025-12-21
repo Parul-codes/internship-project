@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { BookOpen, LogOut, User } from 'lucide-react';
 
 const Navbar = () => {
-  const { user, logout } = useAuth();
+  const { role, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -12,7 +12,7 @@ const Navbar = () => {
   };
 
   const getDashboardLink = () => {
-    switch (user?.role) {
+    switch (role) {
       case 'student':
         return '/student/dashboard';
       case 'mentor':
@@ -36,7 +36,7 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center space-x-6">
-            {user?.role === 'student' && (
+            {role === 'student' && (
               <>
                 <Link
                   to="/student/dashboard"
@@ -45,7 +45,7 @@ const Navbar = () => {
                   My Courses
                 </Link>
                 <Link
-                  to="/student/certificates"
+                  to="/student/certificates/"
                   className="text-gray-700 hover:text-blue-600 transition-colors"
                 >
                   Certificates
@@ -53,7 +53,7 @@ const Navbar = () => {
               </>
             )}
 
-            {user?.role === 'mentor' && (
+            {role === 'mentor' && (
               <Link
                 to="/mentor/dashboard"
                 className="text-gray-700 hover:text-blue-600 transition-colors"
@@ -62,7 +62,7 @@ const Navbar = () => {
               </Link>
             )}
 
-            {user?.role === 'admin' && (
+            {role === 'admin' && (
               <Link
                 to="/admin/dashboard"
                 className="text-gray-700 hover:text-blue-600 transition-colors"
@@ -75,8 +75,8 @@ const Navbar = () => {
               <div className="flex items-center space-x-2">
                 <User className="h-5 w-5 text-gray-600" />
                 <div className="text-sm">
-                  <p className="text-gray-900 font-medium">{user?.name}</p>
-                  <p className="text-gray-500 text-xs capitalize">{user?.role}</p>
+                  <p className="text-gray-900 font-medium">{User?.name}</p>
+                  <p className="text-gray-500 text-xs capitalize">{role}</p>
                 </div>
               </div>
               <button
