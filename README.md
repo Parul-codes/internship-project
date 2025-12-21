@@ -16,12 +16,6 @@ Backend
 -bcrypt
 -PDFKit (Certificate Generation)
 
-Frontend
--React (Vite)
--TypeScript
--Axios
--Tailwind CSS
-
 🔐 Authentication & Authorization
 
 -JWT-based authentication
@@ -115,19 +109,11 @@ backend/
      ├── app.ts
      └── server.ts
 
-frontend/
- └── src/
-     ├── pages/
-     ├── components/
-     ├── services/
-     ├── context/
-     └── main.tsx
 
 ⚙️ Environment Variables
 PORT=4000
 MONGO_URI=your_mongodb_uri
 JWT_SECRET=your_secret_key
-VITE_API_BASE_URL=https://internship-project-lakn.onrender.com
 
 🧪 Testing
 -All APIs tested using Postman
@@ -136,21 +122,13 @@ VITE_API_BASE_URL=https://internship-project-lakn.onrender.com
 
 🚀 Deployment
 -Backend: https://internship-project-lakn.onrender.com
--Frontend: internship-project-eosin.vercel.app
 
 🤖 AI Usage & Transparency
 This project was developed with responsible and transparent use of AI tools, as permitted by the internship guidelines.
 
-Frontend Development
--The initial frontend UI scaffolding was generated using Bolt (AI-powered frontend tool).
-Bolt was used to:
--Generate basic page layouts
--Create initial component structure
--Speed up UI setup
-
 Developer Contributions
--All backend architecture, APIs, authentication, RBAC logic, database models, and business rules were designed and implemented manually.
--Frontend–backend integration, API wiring, authentication handling, and role-based flows were implemented and verified by the developer.
+-All backend architecture, APIs, authentication, RBAC logic, database models, and business rules were designed and implemented manually., though help of AI was taken at some places for syntax checking and error debugging.
+
 All AI-generated code was:
 -Reviewed
 -Modified where required

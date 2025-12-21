@@ -6,7 +6,6 @@ import Login from './pages/Login';
 import StudentDashboard from './pages/StudentDashboard';
 import MentorDashboard from './pages/MentorDashboard';
 import AdminPanel from './pages/AdminPanel';
-// import CourseViewer from './pages/CourseViewer';
 import CertificateDownload from './pages/CertificateDownload';
 
 import { useAuth } from './context/AuthContext';
